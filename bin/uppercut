@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'trollop'
+require 'uppercut'
+
+opts = Trollop::options do
+  version "uppercut"
+  banner <<-EOS
+Uppercut is a jabber agent DSL.
+
+Usage:
+       test [options] <filenames>+
+where [options] are:
+EOS
+
+  opt :agent_file, "Agent file path", :type => String, :required => true
+  opt :config_file, "Config file path", :type => String, :required => true
+end
+
+Trollop::die :agent_file, "must exist" unless File.exist? (opts[:agent_file])
+Trollop::die :config_file, "must exist" unless File.exist?(opts[:config_file])
+
+require opts[:agent_file]
+
+options = YAML.load(File.read(opts[:config_file]))
+
+const_get(options[:agent].capitalize).new(options[:user], options[:password], options)

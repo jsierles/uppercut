@@ -18,7 +18,7 @@ class Uppercut
           block[Conversation.new(msg.from,self),*captures]
         end
       end
-
+      
       private
 
       def gensym
@@ -39,8 +39,10 @@ class Uppercut
       
       @user = user
       @pw = pw
+      
       connect if options[:connect]
       listen if options[:listen]
+      join_muc(options[:muc]) if options[:muc]
       
       @allowed_roster = options[:roster]
       @redirects = {}

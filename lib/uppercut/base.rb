@@ -81,6 +81,15 @@ class Uppercut
       end
     end
 
+    # Join a Multiuser chat room
+    
+    def join_muc(muc)
+      room_name = muc+"/#{@user.node.to_s}"
+      muc = Jabber::MUC::SimpleMUCClient.new(@client)
+      muc.join(Jabber::JID.new(room_name))
+      muc.say "Reporting for duty from #{`hostname`}"
+    end
+    
     def log(error)
       # todo
       p error

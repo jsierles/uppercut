@@ -17,5 +17,5 @@ class BasicAgent < Uppercut::Agent
     c.wait_for do |reply|
       c.send %w(yes y).include?(reply.downcase) ? "Okay!  Done boss!" : "Cancelled!"
     end
-  end
+  end  
 end
